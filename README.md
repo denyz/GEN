@@ -27,7 +27,7 @@ Inside the project folder create a "GEM/data" folder and within this folder, cre
 ```
 datasets/VOD/
 datasets/nuScenes/
-datasets/process (for graph construction)
+datasets/process/ (for graph construction)
 datasets/radarscenes（later...）
 ```
 In a second step follow the instructions of the VOD and nuScenes websites to download and store the datasets in the created subfolders.
