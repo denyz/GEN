@@ -1,5 +1,5 @@
 # GEN
-This repository contains an implementation of Graph Enhanced Multi-Modal Network of Radar-Camera Fusion for 3D Object Detection. As shown in the figure below, the model architecture consists of three major components: ROI generator, fusion module, and fusion-based detection network.
+This repository contains an implementation of Graph Enhanced Multi-Modal Network of Radar-Camera Fusion for 3D Object Detection. As shown in the figure below, the model architecture consists of three major components: point cloud augmentation module, fusion module, and fusion-based detection network.
 ![image](https://github.com/denyz/GEN/assets/18696187/9050f055-1674-4e7f-8955-f3f7d07eaf33)
 
 __Note: It is built upon pytorch-geometric and provides usage with the VOD and nuScenes dataset._
