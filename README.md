@@ -8,41 +8,34 @@ __Note: It is built upon pytorch-geometric and provides usage with the VOD and n
 
 # Result
 Results of our model for 3D object detection on both the [VOD](https://intelligent-vehicles.org/) and the [nuScenes](https://www.nuscenes.org/) dataset. 
-### 3D Object Detection in VOD and nuScenes
+### 3D Object Detection in VOD
 |    VOD Model      |      mAP      |    mAOS   |     Car          | Pedestrian  | Cyclist  |      
 |-------------------|---------------|-----------|------------------|-------------|----------|
 |      ours         |      69.3     |   59.8    |     80.7         |   53.6      |  73.5    |
 |Pointpillars(Radar)|      63.0     |   56.8   |      74.1         |   47.8      |  67.1    |
+
+![image](https://github.com/denyz/GEN/assets/18696187/04000001-319d-4b7d-b399-c3f2b00334ab)
+
 <br>
-
-|  nuScenes Model  |     mAP       |    Car    |   Ped.  |    Bus   |   Bar. |     TC |   Tru. |  Tra.  | Moto   | C.V    | Bic. |         
-|------------------|---------------|-----------|---------|----------|--------|--------|--------|--------|--------|--------|------|
-| FAD PointPillars |     35.7      |   72.7    |   66.9  |    31.8  |    44.6|  40.6  |  25.8  |  29.2  |  32.0  |   7.3  | 5.9  |
-|      FADN        |     72.09     |   89.1    |   89.9  |    73.2  |   79.6 |  89.5  |  62.1  |  65.3  |  77.5  |   36.1 | 58.6 |
-
-
-
-![image](https://github.com/denyz/FADN/assets/18696187/a431a2a8-7faa-46b6-b649-85e3cae15443)
-
 
 # Prerequisites
 - OS: Ubuntu 20.04 LTS
 - CUDA: 11.3
 - cuDNN: 8
-- pytorch 1.10.0
 
 # Preparation
 Inside the project folder create a "FADN/data" folder and within this folder, create a "data/output" subfolder. The trained models and evaluations will be stored in that folder. Depending on the desired dataset, create the following additional subfolders inside the "data" folder:
 ```
-datasets/kitti/
-datasets/nuscenes/
+datasets/VOD/
+datasets/nuScenes/
+datasets/radarscenes（later...）
 ```
 In a second step follow the instructions of the KITTI and nuScenes websites to download and store the datasets in the created subfolders.
 
 Finally, clone this repository into the project folder using the command:
 
 ```
-git clone https://github.com/denyz/FADN.git
+git clone https://github.com/denyz/GEN.git
 ```
 
 <details>
@@ -50,35 +43,38 @@ git clone https://github.com/denyz/FADN.git
 
 ```
 |  
-+---FADN/  
++---GEN/  
 |   |  
 |   +---data/  
 |   |   |  
-|   |   +---kitti/  
+|   |   +---datasets/  
 |   |   |   |
-|   |   |   +---ImageSets/
-|   |   |   |	|   +---train.txt
-|   |   |   |	|   +---val.txt
-|   |   |   |	|   +---test.txt
-|   |   |   +---gt_database/
-|   |   |   +---trainning/
-|   |   |   |	|   +---calib/
-|   |   |   |   |   +---image_2
-|   |   |   |   |   +---image_3
-|   |   |   |   |   +---label_2
-|   |   |   |   |   +---planes
-|   |   |   |	|   +---velodyne
-|   |   |   |	|   +---decorated_lidar
-|   |   |   +---testing/
-|   |   |   |   |   +---calib/
-|   |   |   |   |   +---image_2
-|   |   |   |   |   +---image_3
-|   |   |   |   |   +---planes
-|   |   |   |   |   +---velodyne
+|   |   |   +---VOD/
+|   |   |   |   +---raw
+|   |   |   |   |   +---radar
+|   |   |   |   |   |   +---ImageSets/
+|   |   |   |   |	|   |   +---train.txt
+|   |   |   |   |	|   |   +---val.txt
+|   |   |   |   |	|   |   +---test.txt
+|   |   |   |   |	|   |   +---full.txt
+|   |   |   |   |   |   +---trainning/
+|   |   |   |	|   |   +---calib/
+|   |   |   |   |   |   +---image_2
+|   |   |   |   |   |   +---image_3
+|   |   |   |   |   |   +---label_2
+|   |   |   |   |   |   +---planes
+|   |   |   |	|   |   +---velodyne
+|   |   |   |	|   |   +---decorated_lidar
+|   |   |   |   +---testing/
+|   |   |   |   |   |   +---calib/
+|   |   |   |   |   |   +---image_2
+|   |   |   |   |   |   +---image_3
+|   |   |   |   |   |   +---planes
+|   |   |   |   |   |   +---velodyne
 |   |   |   |
-|   |   |   +---kitti_infos_test.pkl
-|   |   |   +---kitti_infos_train.pkl
-|   |   |   +---kitti_infos_trainval.pkl
+|   |   |   |   +---nuScenes
+|   |   |   |   +---
+|   |   |   |   +---
 |   |   |
 |   +---tools/  
 | 
@@ -136,7 +132,7 @@ usage:   train.py [--data] [--results] [--config]
 $ python tools/train.py --cfg_file cfgs/kitti_models/FADN_decorated.yaml
 ```
 
-### 3. Evaluate a KITTI trained model 
+### 3. Evaluate a VOD trained model 
 Finally, you can evaluate a trained model using the following command in **kittiEval**:
 ```
 usage:   ./eval_detection_3d_offline [gt_dir] [result_dir]
