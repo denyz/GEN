@@ -23,13 +23,14 @@ Results of our model for 3D object detection on both the [VOD](https://intellige
 - cuDNN: 8
 
 # Preparation
-Inside the project folder create a "FADN/data" folder and within this folder, create a "data/output" subfolder. The trained models and evaluations will be stored in that folder. Depending on the desired dataset, create the following additional subfolders inside the "data" folder:
+Inside the project folder create a "GEM/data" folder and within this folder, create a "data/result" subfolder. The trained models and evaluations will be stored in that folder. Depending on the desired dataset, create the following additional subfolders inside the "data" folder:
 ```
 datasets/VOD/
 datasets/nuScenes/
+datasets/process (for graph construction)
 datasets/radarscenes（later...）
 ```
-In a second step follow the instructions of the KITTI and nuScenes websites to download and store the datasets in the created subfolders.
+In a second step follow the instructions of the VOD and nuScenes websites to download and store the datasets in the created subfolders.
 
 Finally, clone this repository into the project folder using the command:
 
@@ -38,7 +39,7 @@ git clone https://github.com/denyz/GEN.git
 ```
 
 <details>
-<summary>If you use the KITTI dataset, your folder structure should now look like this: </summary>
+<summary>If you use the VOD dataset, your folder structure should now look like this: </summary>
 
 ```
 |  
@@ -86,7 +87,7 @@ git clone https://github.com/denyz/GEN.git
 <br>
 
 ## Install
-GEN is a Radar-camera fusion 3D detection framework. It supports many popular datasets like VOD and nuscenes. To install the GEN please first install its requirements.txt. And as we modify some parts of the OpenPCDet LIB to support the decorated KITTI dataset. **We packaged the development environment into docker, which will be released later.** To install it, run the following commands.
+GEN is a Radar-camera fusion 3D detection framework. It supports many popular datasets like VOD and nuscenes. To install the GEN, please first go ahead and install its requirements.txt. And as we modify some parts of the OpenPCDet LIB to support the decorated VOD dataset. **We packaged the development environment into docker, which will be released later.** To install it, run the following commands.
 
 ```
 $ pip install requirements.txt
@@ -114,19 +115,13 @@ arguments:
     --config    Path to the created configuration.yml file
 ```
 
-Create the KITTI PKL
-```
-python -m pcdet.datasets.kitti.kitti_dataset create_kitti_infos tools/cfgs/dataset_configs/decorate_kitti_dataset.yaml
-```
-
 ### 2. Create and train a model
-Next step, you can use the created decorated dataset to train a model. To do this, run the following command: 
+Next step, you can use the created graph dataset to train a model. To do this, run the following command: 
 ```
 $ python3 src/gnnradarobjectdetection/train.py --data ${path_to_graph_dataset_folder}$ --results ${path_to_results_folder}$ --config ${path_to_config_file}$
 
 $ cd tools
 ```
-
 ```
 usage:             train.py [--data] [--results] [--config]
 
@@ -136,20 +131,18 @@ arguments:
     --config       Path to the created configuration.yml file
 ```
 
-### 3. Evaluate a VOD trained model 
-Finally, you can evaluate a trained model using the following command in **kittiEval**:
+### 3. Evaluate a trained model 
+Finally, you can evaluate a trained model using the following command:
 ```
-usage: python3 evaluate.py --data ${path_to_graph_dataset_folder}$ --model ${path_to_model_folder}$ --config ${path_to_config_file}$
+$ python3 evaluate.py --data ${path_to_graph_dataset_folder}$ --model ${path_to_model_folder}$ --config ${path_to_config_file}$
 
 arguments:
-    --data         Path to the created graph-dataset (The same as used for the training of the model to evaluate)
+    --data         Path to the created graph dataset (The same as used for the training of the model to evaluate)
     --model        Path to the folder in which the trained model is saved
     --config       Path to the created configuration.yml file
 ```
-The evaluation metrics include :    
-- Overlap on image (AP)
-- Oriented overlap on image (AOS)
-- Overlap on ground-plane (AP)
-- Overlap in 3D (AP)
+The evaluation metrics included in VOD:    
+- Average Precision (AP)
+- Average Orientation Similarity (AOS)
 
 Within the provided "results" folder a new "data" and "plot" folder is created, in which the evaluation results are saved.
