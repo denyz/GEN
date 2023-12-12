@@ -139,7 +139,12 @@ arguments:
 ### 3. Evaluate a VOD trained model 
 Finally, you can evaluate a trained model using the following command in **kittiEval**:
 ```
-usage:   ./eval_detection_3d_offline [gt_dir] [result_dir]
+usage: python3 evaluate.py --data ${path_to_graph_dataset_folder}$ --model ${path_to_model_folder}$ --config ${path_to_config_file}$
+
+arguments:
+    --data         Path to the created graph-dataset (The same as used for the training of the model to evaluate)
+    --model        Path to the folder in which the trained model is saved
+    --config       Path to the created configuration.yml file
 ```
 The evaluation metrics include :    
 - Overlap on image (AP)
