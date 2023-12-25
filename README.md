@@ -23,7 +23,7 @@ Results of our model for 3D object detection on both the [VOD](https://intellige
 - cuDNN: 8
 
 # Preparation
-Inside the project folder create a "GEM/data" folder and within this folder, create a "data/result" subfolder. The trained models and evaluations will be stored in that folder. Depending on the desired dataset, create the following additional subfolders inside the "data" folder:
+Inside the project folder create a "GEN/data" folder and within this folder, create a "data/result" subfolder. The trained models and evaluations will be stored in that folder. Depending on the desired dataset, create the following additional subfolders inside the "data" folder:
 ```
 datasets/VOD/
 datasets/nuScenes/
