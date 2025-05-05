@@ -61,7 +61,7 @@ def build_evaluator(cfg, dataset_name, output_folder=None):
     if evaluator_type in ["coco", "coco_panoptic_seg"]:
         evaluator_list.append(COCOEvaluator(dataset_name, output_dir=output_folder))
     if evaluator_type == "coco_panoptic_seg":
-        evaluator_list.append(COCOPanopticEvaluator(dataset_name, output_folder))
+        evaluator_list.append(COCOPanopticEvaluator(dataset_name, output_folder, config))
     if evaluator_type == "cityscapes_instance":
         return CityscapesInstanceEvaluator(dataset_name)
     if evaluator_type == "cityscapes_sem_seg":
