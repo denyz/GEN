@@ -34,7 +34,7 @@ TRAIN:
         initial_edge_feature_embedding: True
         node_feature_embedding_layer_dimensions: [32, 64, 128, 224]
         edge_feature_embedding_layer_dimensions: [4, 8, 16]
-        conv_layer_type: "MPNNConv"
+        conv_layer_type: "MPNNConv, GENCov"
 
         batch_norm_in_mlps: False
 
