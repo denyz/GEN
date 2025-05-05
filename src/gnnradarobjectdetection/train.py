@@ -33,7 +33,7 @@ def main(path_to_graph_data: str, path_to_results: str, path_to_config: str):
     # data loader creation
     print(">>> loading data")
     data_loaders, dataset_config_dict = get_data_loaders(
-        ["train", "validate"], path_to_graph_data, training_config.batch_size, training_config.shuffle)
+        ["train", "validate"], path_to_graph_data, training_config.batch_size, training_config.shuffle, training_config.param)
 
     # create gnn
     print(">>> creating model")
